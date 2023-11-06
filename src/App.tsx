@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {useQuery} from '@tanstack/react-query';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const result = useQuery({
+            queryKey: ['posts'],
+            queryFn: async function () {
+                const data = await fetch("https://jsonplaceholder.typicode.com/posts")
+                return data.json()
+            }
+        }
+    )
+
+    console.log('result data:', result)
+    return (
+        <>
+        </>
+    );
 }
 
 export default App;
