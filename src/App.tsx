@@ -1,20 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {useQuery} from '@tanstack/react-query';
+import {ListView} from "./components/listView/listView";
+
 
 function App() {
-    const result = useQuery({
-            queryKey: ['posts'],
-            queryFn: async function () {
-                const data = await fetch("https://jsonplaceholder.typicode.com/posts")
-                return data.json()
-            }
-        }
-    )
 
-    console.log('result data:', result)
+    const[flag, setFlag] =useState(true)
+
     return (
         <>
+            {
+                flag && <>
+
+                    <ListView  />
+                </>
+            }
+            <button
+                onClick={()=>setFlag(!flag)}
+                style={{width:150, backgroundColor:'#356bb2',marginLeft:100, marginTop:50, marginBottom:50, color:'#fff',padding:10}}>
+                toggle
+            </button>
         </>
     );
 }
